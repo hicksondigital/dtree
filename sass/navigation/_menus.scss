@@ -1,0 +1,219 @@
+.main-navigation {
+	display: block;
+
+	ul {
+		display: none;
+		list-style: none;
+		margin: 0 2em 0 0;
+		padding-left: 0;
+
+		ul {
+			float: left;
+			position: absolute;
+			top: 100%;
+			left: -999em;
+			z-index: 99999;
+
+			ul {
+				left: -999em;
+				top: 0;
+			}
+
+			li {
+				&:hover > ul,
+				&.focus > ul {
+					left: 100%;
+				}
+			}
+
+			a {
+				width: 200px;
+			}
+		}
+
+		li:hover > ul,
+		li.focus > ul {
+			left: auto;
+		}
+	}
+
+	li {
+		float: left;
+		margin-left: 2.5rem;
+		position: relative;
+
+	}
+
+	a {
+		display: block;
+		text-decoration: none;
+	}
+	
+	.menu-main-menu-container {
+		display: block;	
+	}
+	
+	.menu-short-menu-container {
+		display: none;
+	}
+	
+	&.toggled {
+		background-color: $color__indigo;
+		display: block;
+		height: 100vh;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100vw;
+		z-index: 100;
+		
+		ul {
+			align-items: center;
+			display: flex;
+			flex-flow: column wrap;
+			min-height: 210px;
+			justify-content: space-between;
+			margin: 100px 0 0 0;
+		}
+		
+		li {
+			float: none;
+			margin-left: 0;
+		}
+		
+		.menu-main-menu-container {
+			display: none;
+		}
+		
+		.menu-short-menu-container {
+			display: block;
+		}
+	}
+}
+
+.admin-bar .main-navigation.toggled {
+	margin-top:45px;
+}
+
+/* Small menu. */
+.menu-toggle {
+	display: block;
+}
+
+@media screen and (min-width: $tablet_width) {
+	.menu-toggle {
+		display: none;
+	}
+	.main-navigation ul {
+		display: block;
+	}
+}
+
+.menu-toggle {
+  	font-size: 0.875em;
+	padding: 1em;
+ 
+	&:focus {
+		outline:none;
+		outline-color: transparent;
+		outline-style: none;
+	}
+
+	.icon {
+		display: inline-block;
+		fill: #000000;
+		height: 1em;
+		width: 1em;
+		vertical-align: middle;
+		position: relative; /* Align more nicely with capital letters */
+		top: -0.0625em;
+	}
+	
+	/* Menu toggle styles. */
+	
+	.icon-menu-toggle {
+		width: 2em;
+		height: 2em;
+		top: 0;
+	}
+}
+
+.home {
+	.menu-toggle {
+		.icon {
+			fill: #fff;
+		}
+	}
+}
+
+.toggled {
+	.menu-toggle {
+		.icon {
+			fill: #fff;
+		}
+		
+		.icon-menu-toggle {
+			width: 2.25em;
+			height: 2.25em;
+			top: 40px;
+			left: 80vw;
+			border: 1px solid white;
+			padding: 3px;
+			border-radius: 2px;
+		}
+	}
+}
+
+/* Animate menu icon (lines). */
+.svg-menu-toggle .line {
+  opacity: 1;
+  transform: rotate(0) translateY(0) translateX(0);
+  transform-origin: 1em 1em;
+  transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
+}
+.svg-menu-toggle .line-1 {
+  transform-origin: 1em 2.5em;
+}
+.svg-menu-toggle .line-3 {
+  transform-origin: 1em 4.5em;
+}
+
+.menu-toggle.toggled .svg-menu-toggle .line-1 {
+  transform: rotate(45deg) translateY(0) translateX(0);
+}
+.menu-toggle.toggled .svg-menu-toggle .line-2 {
+  opacity: 0;
+}
+.menu-toggle.toggled .svg-menu-toggle .line-3 {
+  transform: rotate(-45deg) translateY(0em) translateX(0em);
+}
+
+/* Text meant only for screen readers. */
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+}
+
+.comment-navigation,
+.posts-navigation,
+.post-navigation {
+
+	.site-main & {
+		margin: 0 0 1.5em;
+		overflow: hidden;
+	}
+
+	.nav-previous {
+		float: left;
+		width: 50%;
+	}
+
+	.nav-next {
+		float: right;
+		text-align: right;
+		width: 50%;
+	}
+}

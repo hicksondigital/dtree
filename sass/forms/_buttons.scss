@@ -1,0 +1,56 @@
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+a.wp-block-button__link,
+a.button {
+	border: 2px solid $color__border-button;
+	border-radius: 0;
+	background: $color__background-button;
+	color: $color__indigo;
+	font-family: $font__main;
+	@include font-size(1.2);
+	font-weight: 700;
+	line-height: 1;
+	padding: 0.8em 3.5em;
+	text-transform: uppercase;
+	transition: all 0.3s;
+	
+	@include media(tabletportrait) {
+		padding: 0.8em 3.5em;
+	}
+
+	&:hover {
+		background-color: $color__border-button;
+		border-color: $color__border-button-hover;
+		color: #ffffff;
+		transition: all 0.3s;
+	}
+}
+
+a.button {
+	background: transparent;
+	text-decoration: none;
+	transition: all 0.3s;
+	
+	&:active,
+	&:visited {
+		color: $color__indigo;
+	}
+	
+	&:hover {
+		color: #ffffff;
+		transition: all 0.3s;
+	}
+}
+
+button.menu-toggle {
+	border: none;
+	border-radius: 0;
+	background: transparent;
+	color: #fff;
+	cursor: pointer;
+	padding: 0 1.5em;
+	text-transform: uppercase;
+	transition: all 0.25s ease-in-out;
+}

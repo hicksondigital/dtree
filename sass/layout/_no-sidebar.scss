@@ -1,0 +1,17 @@
+.no-sidebar {
+	.site-content {
+		background-color: #ffffff;
+		text-align:center;
+		margin: 0 auto;
+	}
+	
+	.content-area {
+		float: none;
+		margin: 0 auto;
+		max-width: $desktop_width;
+	}
+
+	.site-main {
+		margin-right: 0;
+	}
+}
