@@ -25,34 +25,45 @@
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'dtree' ); ?></a>
 
 	<header id="masthead" class="site-header">
-		<div class="site-branding">
-			<?php
-			the_custom_logo();
-			if ( is_front_page() && is_home() ) :
-				?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<?php
-			else :
-				?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-				<?php
-			endif;
-			$dtree_description = get_bloginfo( 'description', 'display' );
-			if ( $dtree_description || is_customize_preview() ) :
-				?>
-				<p class="site-description"><?php echo $dtree_description; /* WPCS: xss ok. */ ?></p>
-			<?php endif; ?>
-		</div><!-- .site-branding -->
 
-		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'dtree' ); ?></button>
-			<?php
-			wp_nav_menu( array(
-				'theme_location' => 'menu-1',
-				'menu_id'        => 'primary-menu',
-			) );
-			?>
-		</nav><!-- #site-navigation -->
+		<div id="brand-nav-wrap" class="header-wrap">
+			<div class="site-branding">
+				<?php
+					dtree_site_logo();
+				?>
+			</div><!-- .site-branding -->
+
+			<nav id="site-navigation" class="main-navigation">
+				<?php
+				wp_nav_menu( array(
+					'theme_location' => 'primary',
+					'menu_id'        => 'primary-menu',
+				) );
+				?>
+				<button class="menu-toggle" id="menu-toggle" aria-expanded="false"><span class="screen-reader-text">Menu</span>
+					<svg class="icon icon-menu-toggle" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100">
+						<g class="svg-menu-toggle">
+							<path class="line line-1" d="M5 13h90v14H5z"/>
+							<path class="line line-2" d="M5 43h90v14H5z"/>
+							<path class="line line-3" d="M5 73h90v14H5z"/>
+						</g>
+					</svg>
+				</button>
+				<?php
+				wp_nav_menu( array(
+					'theme_location' => 'mobile',
+					'menu_id'        => 'mobile-menu',
+				) );
+				?>
+			</nav><!-- #site-navigation -->
+		</div><!-- #brand-nav-wrap -->
+
+		<?php if ( is_front_page() ) : ?>
+
+			<h1 class="scroll animated">We partner with brands, agencies and companies to build successful digital experiences with WordPress.</h1>
+
+		<?php endif; ?>
+
 	</header><!-- #masthead -->
 
 	<div id="content" class="site-content">
