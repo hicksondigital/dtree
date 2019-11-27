@@ -164,12 +164,10 @@ function dtree_scripts() {
 	wp_enqueue_style( 'dtree-adobe-fonts', 'https://use.typekit.net/xtf2qsk.css', false ); 
 
 	if ( is_front_page() ) {
-		wp_enqueue_script( 'particles', 'http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js', array(), '2.0.0', true );
-		wp_script_add_data( 'particles', 'async', true );
+		wp_enqueue_script( 'particles', 'https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js', array(), '2.0.0', true );
 	}
 
-	wp_enqueue_script( 'dtree-navigation', get_template_directory_uri() . '/js/navigation.js', array(), $theme_version, true );
-	wp_script_add_data( 'dtree-navigation', 'async', true );
+	wp_enqueue_script( 'dtree-global', get_template_directory_uri() . '/js/global.js', array(), $theme_version, true );
 
 	if ( ( ! is_admin() ) && is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -192,14 +190,6 @@ function dtree_skip_link_focus_fix() {
 	/(trident|msie)/i.test(navigator.userAgent)&&document.getElementById&&window.addEventListener&&window.addEventListener("hashchange",function(){var t,e=location.hash.substring(1);/^[A-z0-9_-]+$/.test(e)&&(t=document.getElementById(e))&&(/^(?:a|select|input|button|textarea)$/i.test(t.tagName)||(t.tabIndex=-1),t.focus())},!1);
 	</script>
 	<?php
-
-	if ( is_front_page() ) { 
-	?>
-	<script defer>
-	particlesJS("masthead",{particles:{number:{value:60,density:{enable:!0,value_area:1200}},color:{value:"#ffffff"},shape:{type:"circle",stroke:{width:0,color:"#000000"},polygon:{nb_sides:5}},opacity:{value:.5,random:!1,anim:{enable:!1,speed:1,opacity_min:.1,sync:!1}},size:{value:3,random:!0,anim:{enable:!1,speed:20,size_min:.1,sync:!1}},line_linked:{enable:!0,distance:150,color:"#ffffff",opacity:.4,width:1},move:{enable:!0,speed:2,direction:"none",random:!1,straight:!1,out_mode:"out",bounce:!1,attract:{enable:!1,rotateX:600,rotateY:1200}}},interactivity:{detect_on:"canvas",events:{onhover:{enable:!0,mode:"repulse"},onclick:{enable:!0,mode:"push"},resize:!0},modes:{grab:{distance:400,line_linked:{opacity:1}},bubble:{distance:400,size:40,duration:2,opacity:8,speed:3},repulse:{distance:45,duration:.8},push:{particles_nb:4},remove:{particles_nb:2}}},retina_detect:!0});
-	</script>
-	<?php
-	}
 }
 add_action( 'wp_print_footer_scripts', 'dtree_skip_link_focus_fix' );
 
@@ -219,3 +209,23 @@ function dtree_mime_types( $mimes ) {
 	return $mimes;
 }
 add_filter( 'upload_mimes', 'dtree_mime_types' );
+
+/** 
+ * Script defer/async attributes
+ */
+function dtree_add_script_attribute( $tag, $handle ) {
+	// add script handles to the array below
+	$scripts_to_defer = array( 'dtree-global' );
+
+	if ( is_front_page() ) {
+		$scripts_to_defer[] = 'particles';
+	}
+	
+	foreach( $scripts_to_defer as $defer_script ) {
+	   if ( $defer_script === $handle ) {
+		  return str_replace( ' src', ' defer="defer" src', $tag );
+	   }
+	}
+	return $tag;
+}
+add_filter( 'script_loader_tag', 'dtree_add_script_attribute', 10, 2 );
